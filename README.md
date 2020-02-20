@@ -4,7 +4,7 @@
 ## Выполнение
 Проверку группы буду выполнять с помощью скрипта для модуля pam_exec.so  
 Условием проверяю номер дня недели, меньше 6 - код выхода 0  
-(для проверки работы скрипта ставил 4, чтобы срабатывало начиная с четверга)
+(для проверки работы скрипта ставил 4, чтобы срабатывало начиная с четверга)  
 в другом случае дополнительно проверяю группу  
 В выводе команды "id $PAM_USER" ищу имя группы admin  
 ```bash
@@ -18,8 +18,8 @@ else
 fi
 ```
 В секции provision Vagrantfile разрешу вход по паролю  
-Добавляю пользователей user1,2,3 и группу admin,туда добавляю vagrant, root и user1,2
-копирую скрипт и добавляю модуль pam_exec в настройки PAM
+Добавляю пользователей user1,2,3 и группу admin,туда добавляю vagrant, root и user1,2  
+копирую скрипт и добавляю модуль pam_exec в настройки PAM  
 ```bash
 sed -i '65s/PasswordAuthentication no/PasswordAuthentication yes/g' /etc/ssh/sshd_config
 systemctl restart sshd
@@ -48,5 +48,5 @@ Feb 20 09:42:09 localhost sshd[5596]: fatal: Access denied for user user3 by PAM
 Feb 20 09:42:14 localhost sshd[5605]: Accepted password for vagrant from 192.168.12.1 port 36304 ssh2
 Feb 20 09:42:14 localhost sshd[5605]: pam_unix(sshd:session): session opened for user vagrant by (uid=0)
 ```
-В выводе консоли и логах secure видно что скрипт отрабатывает и дает код выхода 1 для пользователя не из admin
+В выводе консоли и логах secure видно что скрипт отрабатывает и дает код выхода 1 для пользователя не из admin  
 
